@@ -1,5 +1,5 @@
 import numpy as np
-from random import randint, shuffle
+from random import  shuffle
 
 class InvalidWeightsException(Exception):
     pass
@@ -12,6 +12,8 @@ class HopfieldNetwork(object):
     def __init__(self, num_inputs):
         self._num_inputs = num_inputs
         self._weights = np.random.uniform(-1.0, 1.0, (num_inputs, num_inputs))
+        for i in range(num_inputs):
+            self._weights[i][i]=0  #no self to self connection
 
     def set_weights(self, weights):
         """Update the weights array"""
@@ -24,7 +26,7 @@ class HopfieldNetwork(object):
         """Return the weights array"""
         return self._weights
     
-    def calculate_neuron_output(self, neuron, input_pattern):
+    def calculate_neuron_output(self, neuron, input_pattern): #input_pattern is supposed to be a numpy.array
         """Calculate the output of the given neuron"""
         num_neurons = len(input_pattern)
 
